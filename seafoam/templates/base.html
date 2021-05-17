@@ -5,8 +5,6 @@
     {% set HIDE_SIDEBAR = False %}
 {% endif -%}
 
-{% set JQUERY_JS_URL=SITEURL ~ "/" ~ THEME_STATIC_DIR ~ "/js/jquery.min.js?v=3.1.1" -%}
-
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:og="http://ogp.me/ns#"
@@ -91,24 +89,6 @@
         {% endfor %}
     {% endif %}
   {%- endif %}
-
-    <!-- JQUERY_JS_IN_HEAD -->
-    {% if JQUERY_JS_IN_HEAD %}
-        <script src="{{ JQUERY_JS_URL }}" type="text/javascript"></script>
-    {% endif %}
-
-    <!-- CUSTOM_JS_LIST_HEAD -->
-    {% if CUSTOM_JS_LIST_HEAD %}
-        {% for custom_js in CUSTOM_JS_LIST_HEAD %}
-            {% if custom_js.startswith('//') or custom_js.startswith('http://') or custom_js.startswith('https://') %}
-                <script src="{{ custom_js }}" type="text/javascript"></script>
-            {% elif custom_js.startswith('<script') %}
-                {{ custom_js }}
-            {% else %}
-                <script src="{{ SITEURL -}} / {{- custom_js }}" type="text/javascript"></script>
-            {% endif %}
-        {% endfor %}
-    {% endif -%}
 
     <!-- Feeds -->
     {% if FEED_ALL_ATOM %}
@@ -238,44 +218,5 @@
 </div> <!-- /.container -->
 {%- include 'includes/footer.html' %}
 
-{% if ASSET_JS %}
-    {# put assets in a seperate file, otherwise it breaks if the assets #}
-    {# plugin is not active #}
-    {% include 'includes/assets-js.html' %}
-{% else %}
-    <!-- JQuery, if not in head -->
-    {% if not JQUERY_JS_IN_HEAD == True %}
-        <script src="{{ JQUERY_JS_URL }}" type="text/javascript"></script>
-    {% endif %}
-
-    <!-- Bootstrap -- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="{{ SITEURL -}} / {{- THEME_STATIC_DIR -}} /js/bootstrap.min.js" type="text/javascript"></script>
-
-    <!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
-    <script src="{{ SITEURL -}} / {{- THEME_STATIC_DIR -}} /js/respond.min.js?v=1.4.2" type="text/javascript"></script>
-{% endif %}
-
-<!-- CUSTOM_JS_LIST -->
-{% if CUSTOM_JS_LIST %}
-    {% for custom_js in CUSTOM_JS_LIST %}
-        {% if custom_js.startswith('//') or custom_js.startswith('http://') or custom_js.startswith('https://') %}
-            <script src="{{ custom_js }}" type="text/javascript"></script>
-        {% elif custom_js.startswith('<script') %}
-            {{ custom_js }}
-        {% else %}
-            <script src="{{ SITEURL -}} / {{- custom_js }}" type="text/javascript"></script>
-        {% endif %}
-    {% endfor %}
-{% endif -%}
-
-<!-- theme includes, including JS -->
-{% include 'includes/github-js.html' %}
-{% include 'includes/disqus_script.html' %}
-{% include 'includes/ga.html' %}
-{% include 'includes/piwik.html' %}
-{% include 'includes/comments-js.html' -%}
-
-<!-- script block -->
-{% block scripts %}{% endblock %}
 </body>
 </html>
