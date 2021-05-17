@@ -49,46 +49,6 @@
             {% endif %}
         {% endif %}
     {% endif -%}
-    
-  {% if ASSET_CSS %}
-    {# put assets in a seperate file, otherwise it breaks if the assets #}
-    {# plugin is not active #}
-    {% include 'includes/assets-css.html' %}
-  {% else %}
-    <!-- Bootstrap CSS -->
-    {% if BOOTSTRAP_THEME %}
-        <link href="{{ SITEURL -}} / {{- THEME_STATIC_DIR -}} /css/bootstrap.{{ BOOTSTRAP_THEME }}.min.css" rel="stylesheet" type="text/css"/>
-    {% else %}
-        <link href="{{ SITEURL -}} / {{- THEME_STATIC_DIR -}} /css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-    {% endif %}
-    {# DISABLED -- moved this to my Bootstrap theme 
-    <link href="{{ SITEURL -}} / {{- THEME_STATIC_DIR -}} /css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-    <link href="{{ SITEURL -}} / {{- THEME_STATIC_DIR -}} /css/pygments/{{ PYGMENTS_STYLE|default('native') }}.css" rel="stylesheet" type="text/css" />
-    #}
-    {% if DOCUTIL_CSS %}
-        <link href="{{ SITEURL -}} / {{- THEME_STATIC_DIR -}} /css/html4css1.css" rel="stylesheet" type="text/css" />
-    {% endif %}
-    {# DISABLED -- moved this to my Bootstrap theme 
-    {% if TYPOGRIFY %}
-        <link href="{{ SITEURL -}} / {{- THEME_STATIC_DIR -}} /css/typogrify.css" rel="stylesheet"  type="text/css" />
-    {% endif %}
-    <link href="{{ SITEURL -}} / {{- THEME_STATIC_DIR -}} /css/style.css" rel="stylesheet" type="text/css" />
-    #}
-    <!-- CUSTOM_CSS -->
-    {% if CUSTOM_CSS %}
-        <link href="{{ SITEURL -}} / {{- CUSTOM_CSS }}" rel="stylesheet" type="text/css" />
-    {% endif %}
-    <!-- CUSTOM_CSS_LIST -->
-    {% if CUSTOM_CSS_LIST %}
-        {% for custom_css in CUSTOM_CSS_LIST %}
-            {% if custom_css.startswith('//') or custom_css.startswith('http://') or custom_css.startswith('https://') %}
-                <link href="{{ custom_css }}" rel="stylesheet" type="text/css" />
-            {% else %}
-                <link href="{{ SITEURL -}} / {{- custom_css }}" rel="stylesheet" type="text/css" />
-            {% endif %}
-        {% endfor %}
-    {% endif %}
-  {%- endif %}
 
     <!-- Feeds -->
     {% if FEED_ALL_ATOM %}
@@ -101,6 +61,47 @@
     {% endif -%}
 </head>
 <body>
+    
+  {% if ASSET_CSS %}
+    {# put assets in a seperate file, otherwise it breaks if the assets #}
+    {# plugin is not active #}
+    {% include 'includes/assets-css.html' %}
+  {% else %}
+    <!-- Bootstrap CSS -->
+    {% if BOOTSTRAP_THEME %}
+        <link href="{{ SITEURL -}} / {{- THEME_STATIC_DIR -}} /css/bootstrap.{{ BOOTSTRAP_THEME }}.min.css" rel="stylesheet" type="text/css" media="screen"/>
+    {% else %}
+        <link href="{{ SITEURL -}} / {{- THEME_STATIC_DIR -}} /css/bootstrap.min.css" rel="stylesheet" type="text/css"/ media="screen">
+    {% endif %}
+    {# DISABLED -- moved this to my Bootstrap theme 
+    <link href="{{ SITEURL -}} / {{- THEME_STATIC_DIR -}} /css/font-awesome.min.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="{{ SITEURL -}} / {{- THEME_STATIC_DIR -}} /css/pygments/{{ PYGMENTS_STYLE|default('native') }}.css" rel="stylesheet" type="text/css" media="screen" />
+    #}
+    {% if DOCUTIL_CSS %}
+        <link href="{{ SITEURL -}} / {{- THEME_STATIC_DIR -}} /css/html4css1.css" rel="stylesheet" type="text/css" media="screen" />
+    {% endif %}
+    {# DISABLED -- moved this to my Bootstrap theme 
+    {% if TYPOGRIFY %}
+        <link href="{{ SITEURL -}} / {{- THEME_STATIC_DIR -}} /css/typogrify.css" rel="stylesheet"  type="text/css" media="screen" />
+    {% endif %}
+    <link href="{{ SITEURL -}} / {{- THEME_STATIC_DIR -}} /css/style.css" rel="stylesheet" type="text/css" media="screen" />
+    #}
+    <!-- CUSTOM_CSS -->
+    {% if CUSTOM_CSS %}
+        <link href="{{ SITEURL -}} / {{- CUSTOM_CSS }}" rel="stylesheet" type="text/css" media="screen" />
+    {% endif %}
+    <!-- CUSTOM_CSS_LIST -->
+    {% if CUSTOM_CSS_LIST %}
+        {% for custom_css in CUSTOM_CSS_LIST %}
+            {% if custom_css.startswith('//') or custom_css.startswith('http://') or custom_css.startswith('https://') %}
+                <link href="{{ custom_css }}" rel="stylesheet" type="text/css" media="screen" />
+            {% else %}
+                <link href="{{ SITEURL -}} / {{- custom_css }}" rel="stylesheet" type="text/css" media="screen" />
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+  {%- endif %}
+
     <div class="container">
     {% if not NAVBAR_ON_TOP %}
     <div class="row">
